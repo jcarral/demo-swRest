@@ -2,7 +2,7 @@
 const Estudiante = require('../models/estudiante.model')
 
 const checkEstudiante = (req, res, next) => {
-    let mail = req.query.mail || req.body.correo
+    let mail = req.query.correo || req.body.correo
     if (mail === '' || mail === undefined || mail === null) {
         res.statusCode = 400
         return res.send({
