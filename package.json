@@ -2,6 +2,9 @@
   "name": "sw-servicio-rest",
   "version": "0.0.1",
   "description": "Demo de servicio web para asignatura sw",
+  "engines": {
+    "node": "5.9.1"
+  },
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -14,7 +17,7 @@
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "Joseba Carral",
   "license": "MIT"
