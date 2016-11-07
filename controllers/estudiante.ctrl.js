@@ -3,6 +3,7 @@ const Estudiante = require('../models/estudiante.model')
 
 const checkEstudiante = (req, res, next) => {
     let mail = req.query.correo || req.body.correo
+    console.log(req.body);
     if (mail === '' || mail === undefined || mail === null) {
         res.statusCode = 400
         return res.send({
@@ -56,7 +57,7 @@ const deleteEstudiante = (req, res, next) => {
 }
 
 const addEstudiante = (req, res, next) => {
-    let estudiante = new Estudiante(req.body)
+    let estudiante = new Estudiante(req.body.estudiante)
     estudiante.save((err, data) => {
         if (err) {
             res.statusCode = res.statusCode = 500
