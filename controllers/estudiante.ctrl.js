@@ -38,19 +38,24 @@ const checkEstudiante = (req, res, next) => {
 
 const deleteEstudiante = (req, res, next) => {
     let correo = req.body.correo
-    Estudiante.remove({
+    Estudiante.findOneAndRemove({
         correo: correo
-    }, (err) => {
+    }, (err, data) => {
         if (err) {
             res.statusCode = 400
             console.log('Internal error(%d): %s', res.statusCode, err.message)
             res.send({
                 error: 'Error al intentar borrar al estudiante'
             })
-        } else {
+        } else if (data !== null) {
             res.statusCode = 200
             res.send({
                 message: 'Estudiante eliminado correctamente'
+            })
+        } else {
+            res.statusCode = 200
+            res.send({
+                message: 'Estudiante inexistente'
             })
         }
     })
