@@ -13,6 +13,7 @@ if (config.util.getEnv('NODE_ENV') !== 'test') {
     app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
 }
 
+//Conexión con la DB
 mongoose.connect(conf.path)
 mongoose.connection.once('connected', function() {
     console.log("Connected to database")
@@ -32,14 +33,22 @@ app.use(function(req, res, next) {
     next();
 })
 
+/**
+ * [GET] /api/check/:correo
+ * [GET] /api/check?correo=
+ * [PUT] /api/add
+ * [DELETE] /api/delete
+ */
 app.use('/api', require('./routes/api.routes'))
+
+//Fallback function
 app.use((req, res, next) => {
     res.statusCode = 404
     res.send({
         error: 'Page not found'
     })
 })
-console.log(conf.path);
+
 app.listen(conf.port, () => {
     console.log("App en marcha")
 })

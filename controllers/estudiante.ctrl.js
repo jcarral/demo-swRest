@@ -1,10 +1,11 @@
 'use strict'
 const Estudiante = require('../models/estudiante.model')
 
+
 const checkEstudiante = (req, res, next) => {
     let mail = req.query.correo || req.body.correo || req.params.correo
-    console.log(req.body);
-    if (mail === '' || mail === undefined || mail === null) {
+
+    if (mail === '' || typeof mail === 'undefined' || mail === null) {
         res.statusCode = 400
         return res.send({
             error: 'Parámetros incorrectos'
@@ -15,13 +16,13 @@ const checkEstudiante = (req, res, next) => {
     })
 
     query.exec((err, data) => {
-        if (err) {
+        if (err) { //Error al ejecutar el query
             res.statusCode = 500
             console.log('Internal error(%d): %s', res.statusCode, err.message)
             res.send({
                 error: 'Error del servidor'
             })
-        } else if (data === null || data.length === 0) {
+        } else if (data === null || data.length === 0) { //No existe el estudiante
             res.statusCode = 200
             res.send({
                 message: 'Correo no válido'
@@ -52,7 +53,7 @@ const deleteEstudiante = (req, res, next) => {
             res.send({
                 message: 'Estudiante eliminado correctamente'
             })
-        } else {
+        } else { //No existe el estudiante
             res.statusCode = 200
             res.send({
                 message: 'Estudiante inexistente'
